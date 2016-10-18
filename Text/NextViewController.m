@@ -7,7 +7,7 @@
 //
 
 #import "NextViewController.h"
-#import "HKKeyBoardManager.h"
+#import "SYHKeyBoardManager.h"
 
 @interface NextViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UITextViewDelegate>
 
@@ -17,7 +17,7 @@
 
 @property (nonatomic , strong) NSMutableArray * dataSource;
 
-@property (nonatomic , strong) HKKeyBoardManager * keyBoardManager;
+@property (nonatomic , strong) SYHKeyBoardManager * keyBoardManager;
 @end
 
 @implementation NextViewController
@@ -37,20 +37,31 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Dismiss" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationController.navigationBar.translucent = NO;
     
-    _keyBoardManager  = [[HKKeyBoardManager alloc] initWithScollerView:self.tableView];
+    _keyBoardManager  = [[SYHKeyBoardManager alloc] initWithScollerView:self.tableView];
     
-    for (NSInteger i = 0; i <16; i++) {
+    for (NSInteger i = 0; i <15; i++) {
         UITextField * t = [self cinputView];
         [_keyBoardManager managerTextField:t];
         [self.dataSource addObject:t];
     }
     
-    for (NSInteger i = 0; i <16; i++) {
+    for (NSInteger i = 0; i <15; i++) {
         UITextView * t = [self _cinputView];
         [_keyBoardManager managerTextView:t];
         [self.dataSource addObject:t];
     }
     
+    for (NSInteger i = 0; i <15; i++) {
+        UITextField * t = [self cinputView];
+        [_keyBoardManager managerTextField:t];
+        [self.dataSource addObject:t];
+    }
+    
+    for (NSInteger i = 0; i <15; i++) {
+        UITextView * t = [self _cinputView];
+        [_keyBoardManager managerTextView:t];
+        [self.dataSource addObject:t];
+    }
 }
 
 - (void)dismiss{
@@ -61,7 +72,7 @@
 - (UITextField *)cinputView{
  
     UITextField * inputView = [UITextField new];
-    inputView.frame = CGRectMake(10, 5, self.view.frame.size.width - 60, 34);
+    inputView.frame = CGRectMake(10, 1, self.view.frame.size.width - 60, 42);
     inputView.backgroundColor = [UIColor lightGrayColor];
     inputView.delegate = self;
     return inputView;
@@ -70,7 +81,7 @@
 - (UITextView *)_cinputView{
     
     UITextView * inputView = [UITextView new];
-    inputView.frame = CGRectMake(10, 5, self.view.frame.size.width - 60, 34);
+    inputView.frame = CGRectMake(10,1, self.view.frame.size.width - 60, 42);
     inputView.backgroundColor = [UIColor lightGrayColor];
      inputView.delegate = self;
     return inputView;
@@ -116,7 +127,7 @@
     }];
     UITextField * t = self.dataSource[indexPath.row];
     [cell.contentView addSubview:t];
-    t.text = [NSString stringWithFormat:@"第%ld个TextField",indexPath.row];
+    t.text = [NSString stringWithFormat:@"第%ld个-inputText",indexPath.row];
     
     return cell;
 }

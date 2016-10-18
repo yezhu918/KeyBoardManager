@@ -6,27 +6,24 @@
 //  Copyright © 2016年 hkqj. All rights reserved.
 //
 
-#import "HKKeyBoardManager.h"
+#import "SYHKeyBoardManager.h"
 #import <objc/runtime.h>
 
-#define DEFAULT_KEYBOARD_HEIGHT 290
 static CGFloat kSpaceTextFromKkeyBoard = 15.0f;
 static NSString * const ExchangObject = @"ExchangObject";
 static NSString * const IsExchangSHowMothed = @"SHowMothed";
 static NSString * const IsExchangHideMothed = @"HideMothed";
 
-@interface HKKeyBoardManager()<UITextFieldDelegate,UITextViewDelegate>
-
+@interface SYHKeyBoardManager()<UITextFieldDelegate,UITextViewDelegate>
 
 @property (nonatomic ,assign) CGFloat keyBoardHeight;
 @property (nonatomic ,assign) CGFloat lastkeyBoardHeight;
 @property (nonatomic , weak) UIScrollView * scorllerView;
 @property (nonatomic , weak) UIView * firstResponderView;
 
-
 @end
 
-@implementation HKKeyBoardManager
+@implementation SYHKeyBoardManager
 
 - (instancetype)initWithScollerView:(UIScrollView *)scrollerView{
 
@@ -91,10 +88,6 @@ static NSString * const IsExchangHideMothed = @"HideMothed";
 
 - (void)showKeyBoardHandle:(UIView *)targetView{
     
-    if (self.keyBoardHeight == 0) {
-        self.keyBoardHeight = DEFAULT_KEYBOARD_HEIGHT;
-    }
-
     self.firstResponderView = targetView;
     self.lastkeyBoardHeight = self.keyBoardHeight;
 //    NSLog(@"showKeyBoardHandle = %f",self.keyBoardHeight);
@@ -244,7 +237,7 @@ static NSString * const IsExchangHideMothed = @"HideMothed";
 }
 
 -(void)_swizzledShowKeyBoard:(UITextView *)targetView{
-    HKKeyBoardManager * manager = objc_getAssociatedObject(targetView, (__bridge const void *)(ExchangObject));
+    SYHKeyBoardManager * manager = objc_getAssociatedObject(targetView, (__bridge const void *)(ExchangObject));
     if (manager) {
         [manager showKeyBoardHandle:targetView];
         BOOL isExchange = [objc_getAssociatedObject(self, (__bridge const void *)(IsExchangSHowMothed)) boolValue];
@@ -256,7 +249,7 @@ static NSString * const IsExchangHideMothed = @"HideMothed";
 
 -(void)_swizzledHideKeyBoard:(UITextView *)targetView{
 
-    HKKeyBoardManager * manager = objc_getAssociatedObject(targetView, (__bridge const void *)(ExchangObject));
+    SYHKeyBoardManager * manager = objc_getAssociatedObject(targetView, (__bridge const void *)(ExchangObject));
     if (manager) {
         [manager hideKeyBoardHandle];
         BOOL isExchange = [objc_getAssociatedObject(self, (__bridge const void *)(IsExchangHideMothed)) boolValue];
@@ -267,7 +260,7 @@ static NSString * const IsExchangHideMothed = @"HideMothed";
 }
 
 -(void)swizzledShowKeyBoard:(UITextField *)targetView{
-    HKKeyBoardManager * manager = objc_getAssociatedObject(targetView, (__bridge const void *)(ExchangObject));
+    SYHKeyBoardManager * manager = objc_getAssociatedObject(targetView, (__bridge const void *)(ExchangObject));
     if (manager) {
         [manager showKeyBoardHandle:targetView];
         BOOL isExchange = [objc_getAssociatedObject(self, (__bridge const void *)(IsExchangSHowMothed)) boolValue];
@@ -278,7 +271,7 @@ static NSString * const IsExchangHideMothed = @"HideMothed";
 }
 
 -(void)swizzledHideKeyBoard:(UITextField *)targetView{
-    HKKeyBoardManager * manager = objc_getAssociatedObject(targetView, (__bridge const void *)(ExchangObject));
+    SYHKeyBoardManager * manager = objc_getAssociatedObject(targetView, (__bridge const void *)(ExchangObject));
         if (manager) {
         [manager hideKeyBoardHandle];
         BOOL isExchange = [objc_getAssociatedObject(self, (__bridge const void *)(IsExchangHideMothed)) boolValue];

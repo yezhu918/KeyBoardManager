@@ -16,7 +16,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface HKKeyBoardManager : NSObject
+@interface SYHKeyBoardManager : NSObject
 
 - (instancetype)initWithScollerView:(UIScrollView *)scrollerView;
 - (void)managerTextField:(UITextField *)text;
