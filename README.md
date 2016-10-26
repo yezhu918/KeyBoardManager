@@ -11,5 +11,5 @@
  *  例:
  *   KeyBoardManager * keyBoardManager = [[HKKeyBoardManager alloc]initWithScollerView:scrollerView];
  *   [keyBoardManager managerTextField:textField];
- *   [keyBoardManager managerTextField:textView];
+ *   [keyBoardManager managerTextView:textView];
  */
